@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+
+	<title>Micro Modal</title>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://browserid.org/include.js" type="text/javascript"></script>
+
+	<link href="microModal.css" rel="stylesheet" media="all"/>
+	<script src="microModal.js" type="text/javascript"></script>
+
+	<style type="text/css">
+		body, html { margin: 0; padding: 0; }
+		body
+		{
+			font-family: Helvetica, Arial, sans-serif;
+			line-height: 1.5em;
+			font-size: 14px;
+			color: #333;
+			background: #eee;
+		}
+		a { text-decoration: none; color: #667983; }
+		a:hover { color: #39809A; }
+		em { background: #ffe; }
+		.wrap { word-wrap:break-word; }
+		ul, li { list-style: none; margin: 0; padding: 0; }
+		li a { line-height: 2em; }
+		h2 { border-bottom: 1px solid #ddd; margin: 1em 0;}
+		#container {
+			margin: 2em auto;
+			width: 500px;
+			background: #f3f3f3;
+			padding: 1em;
+			border: 1px solid #fff;
+			-webkit-box-shadow: 0px 1px 2px 0px #aaaaaa;
+			-moz-box-shadow: 0px 1px 2px 0px #aaaaaa;
+			box-shadow: 0px 1px 2px 0px #aaaaaa;
+		}
+	</style>
+</head>
+<body lang="en">
+
+<div id="container">
+	<h2>Examples</h2>
+	<ul>
+		<li><a href="#" id="example_login"><img src="https://browserid.org/i/sign_in_green.png" alt="Sign-in Button"></a></li>
+		<li><a href="#" id="example_img"><img src="http://placehold.it/300x150" alt="Sample Image"></a></li>
+		<li><a href="#" id="example_basic">Basic Text Modal</a></li>
+		<li><a href="#" id="example_slow">Basic Slow Modal</a></li>
+		<li><a href="#" id="example_dark">Basic Dark Modal</a></li>
+		<li><a href="#" id="example_full">Full Modal</a></li>
+		<li><a href="#" id="example_iframe">iFrame Modal</a></li>
+		<li><a href="#" id="example_confirm">Confirm Modal</a></li>
+		<li><a href="#" id="example_growl">Growl Modal</a></li>
+		<li><a href="#" id="example_dom">DOM Modal</a></li>
+	</ul>
+
+	<h2>Sample Code</h2>
+	<pre><code>$.microModal('&lt;p>Modal Message&lt;/p>', { [options] }); </code></pre>
+
+	<h2>Options</h2>
+	<ul>
+		<li><b>title</b> - Modal title string</li>
+		<li><b>footer</b> - Modal footer string</li>
+		<li><b>top</b> - Number of pixels from top of page</li>
+		<li><b>width</b> - Width of the modal</li>
+		<li><b>speed</b> - fade in/out speed in ms</li>
+		<li><b>overlayClose</b> - <em>false</em> to stop clicking the overlay from closing the modal.</li>
+		<li><b>closeOnEscape</b> - <em>false</em> to stop the ESC key from closing the modal.</li>
+		<li><b>onOpen</b> - callback to run after modal opens.</li>
+		<li><b>onClose</b> - callback to run after modal closes.</li>
+	</ul>
+
+	<div style="display:none;">
+		<p id="dom_modal_content">This is the hidden content for the DOM modal</p>
+	</div>
+
+	<h2>About microModal</h2>
+	<p>This modal is based on the concept of passing <i>messages</i> to modals instead of <i>existing DOM elements</i>.</p>
+	<p>Created by <a href="http://xeoncross.com">David Pennington</a> and released free under the MIT License.
+	<br>Based heavly on <a href="http://flaviusmatis.github.com/easyModal.js/">easyModal</a> and
+	<a href="http://jordanadams.github.com/Modalite/demo/">Modalite</a>.</p>
+</div>
+
+<script>
+$(function()
+{
+	// Image modal
+	$('#example_img').click(function() {
+		$.microModal('<img src="http://placehold.it/300x150"><p>This is an image placeholder</p>',
+		{
+			title: 'Sample Image'
+		});
+	});
+
+	// Basic modal
+	$('#example_basic').click(function() {
+		$.microModal('<p>Thanks! We got your message!</p>');
+	});
+
+	// Darker modal overlay
+	$('#example_dark').click(function() {
+		$.microModal('<p>Welcome to the dark side</p>',
+		{
+			theme: 'dark'
+		});
+	});
+
+	// Slow modal
+	$('#example_slow').click(function() {
+		$.microModal("<p>They say it's a slow fade...</p>", { speed: 1500 });
+	});
+
+	// Full modal
+	$('#example_full').click(function() {
+		$.microModal('<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>',
+		{
+			title: 'Header Title',
+			footer: '<button class="modal-close btn">Ok</a>',
+			width: 300
+		});
+	});
+
+	// Sample iFrame modal
+	$('#example_iframe').click(function()
+	{
+		$.microModal('<iframe style="border: none; width: 700px; height: 500px;" src="http://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Big+Ben,+London&amp;aq=0&amp;sll=51.521775,-0.14883&amp;sspn=0.086196,0.110722&amp;vpsrc=0&amp;ie=UTF8&amp;hq=Big+Ben,+London&amp;hnear=&amp;radius=15000&amp;t=h&amp;layer=c&amp;cbll=51.500956,-0.125411&amp;panoid=Suvmsm_HtVYYbYsUBLljHQ&amp;cbp=13,125.29,,0,-25.57&amp;ll=51.48165,-0.124969&amp;spn=0.067136,0.192947&amp;z=12&amp;output=svembed"></iframe>',
+		{
+			title: 'View our Office'
+		});
+	});
+
+	// Confirm modal
+	$('#example_confirm').click(function() {
+		$.microModal('<p>You cannot close this by clicking the overlay or pressing ESC. You must confirm.</p>',
+		{
+			footer: '<button class="modal-close btn">Ok</a>',
+			overlayClose: false,
+			closeOnEscape: false
+		});
+	});
+
+	// Growl-notice modal
+	$('#example_growl').click(function() {
+		$.microModal('<p>Wow! Something <i>important</i> happened.</p>',
+		{
+			//overlayClose: false,
+			//closeOnEscape: false,
+			footer: false,
+			onOpen: function(modal)
+			{
+				// auto-close this modal after 2 seconds
+				setTimeout(function(){ $(modal).trigger('closeModal'); }, 2000);
+			}
+		});
+	});
+
+	// DOM-element modal
+	$('#example_dom').click(function() {
+		$.microModal($('#dom_modal_content').clone());
+	});
+
+
+	/***************
+	 * Now things get awsome!
+	 * lets build a login system using this!
+	 ***************/
+
+
+	// on click, log them in with browser ID
+	$('#example_login').click(function(e)
+	{
+		e.preventDefault();
+		navigator.id.get(function(assertion)
+		{
+			if (assertion)
+			{
+				$.microModal('<p>You have provided an assertion.</p>', { title: 'Success' });
+
+				// This is the point where you verify that assertion by sending an AJAX request
+				//checkAssertion(assertion);
+			}
+			else
+			{
+				$.microModal('<p>Sorry, you must provide an assertion to login.</p>', { title: 'Error' });
+			}
+		},
+		{
+			allowPersistent: true
+		});
+	});
+
+	/*
+	// Sample function to check an assertion against the server
+	function checkAssertion(assertion)
+	{
+		$.ajax({
+			url: "/user/login",
+			type: "post",
+			dataType: "json",
+			data: {
+				assertion: assertion,
+				audience: window.location.protocol + "//" + window.location.host,
+			},
+			success: function(data, textStatus, jqXHR)
+			{
+				// @todo
+			},
+			error: function(jqXHR, textStatus, errorThrown)
+			{
+				var data = jqXHR.responseText ? JSON.parse(jqXHR.responseText) : errorThrown;
+
+				// @todo
+			}
+		});
+	};
+	*/
+
+});
+</script>
+</body>
+</html>
